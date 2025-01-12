@@ -5,13 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Infraestructure_Layer
+namespace Infraestructure_Layer.Entities
 {
-    internal class Student:BaseEntity
+    internal class Student : BaseEntity
     {
 
         public int Id { get; set; }
-        public string Name { get; set; }=String.Empty;
+        public string Name { get; set; } = string.Empty;
         public int Age { get; set; }
     }
 }

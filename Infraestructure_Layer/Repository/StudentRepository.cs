@@ -1,35 +1,42 @@
 ﻿using Domain_Layer.Interfaces.Repository;
+using Infraestructure_Layer.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Infraestructure_Layer.Repository
 {
-    internal class StudentRepository : IRepository<Student>
+    public class StudentRepository : IStudentRepository
     {
-        public Task<int> Add(Student entity)
+        public Task<int> Add(Domain_Layer.Model.Student entity)
         {
             throw new NotImplementedException();
         }
 
-        public Task Delete(int id)
+        public Task<int> Delete(int id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<Student>> GetAll()
+        public Task<IQueryable<Domain_Layer.Model.Student>> ExecuteQuery(Expression<Func<Domain_Layer.Model.Student, bool>> predicate)
         {
             throw new NotImplementedException();
         }
 
-        public Task<Student> GetById(int id)
+        public Task<IEnumerable<Domain_Layer.Model.Student>> GetAll()
         {
             throw new NotImplementedException();
         }
 
-        public Task<int> Update(Student entity)
+        public Task<Domain_Layer.Model.Student> GetById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<int> Update(Domain_Layer.Model.Student entity)
         {
             throw new NotImplementedException();
         }

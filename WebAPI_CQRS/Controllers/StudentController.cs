@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using MediatR;
+using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -7,7 +8,14 @@ namespace WebAPI_CQRS.Controllers
     [Route("api/[controller]")]
     [ApiController]
     public class StudentController : ControllerBase
-    {
+    {       
+
+        private readonly ISender _sender;
+        public StudentController(ISender sender) {
+            _sender = sender;       
+        }
+
+
         // GET: api/<StudentController>
         [HttpGet]
         public IEnumerable<string> Get()
