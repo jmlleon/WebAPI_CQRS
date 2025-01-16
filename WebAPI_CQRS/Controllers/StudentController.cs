@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using Application_Layer.Students.Queries.GetAll;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -15,12 +16,14 @@ namespace WebAPI_CQRS.Controllers
             _sender = sender;       
         }
 
-
         // GET: api/<StudentController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<IActionResult> GetAll()
         {
-            return new string[] { "value1", "value2" };
+            var result = await _sender.Send(new GetAllStudentsQuery());
+
+            return result.IsSuccess ? Ok(result.Value): BadRequest(result.Error);
+
         }
 
         // GET api/<StudentController>/5

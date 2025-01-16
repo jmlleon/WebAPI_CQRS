@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace Domain_Layer.Model
 {
-    public class Student:BaseModel
+    public class Student(int id, string name, string lastname, int age) : BaseModel
     {
-        public int Id { get; set; }
-        public string Name { get; set; } = string.Empty;
-        public int Age { get; set; }
+        public int Id { get; set; } = id;
+        public string Name { get; set; } = name;
+        public string LastName { get; set; } = lastname;
+        public int Age { get; set; } = age;
     }
 }
