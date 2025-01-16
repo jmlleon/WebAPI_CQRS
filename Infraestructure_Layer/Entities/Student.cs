@@ -8,21 +8,11 @@ using System.Threading.Tasks;
 
 namespace Infraestructure_Layer.Entities
 {
-    public sealed class Student : BaseEntity
+    public sealed class Student(Guid id, string name, string lastName, int age) : BaseEntity
     {
-        
-        public int Id { get; set; }
-        public string Name { get; set; } = string.Empty;
-        public string LastName { get; set; } = string.Empty;
-        public int Age { get; set; }
-
-        public Student(int id, string name, string lastName, int age)
-        {
-            Id = id;
-            Name = name;
-            LastName= lastName;
-            Age = age;
-            
-        }
+        public Guid Id { get; set; } = id;
+        public string Name { get; set; } = name;
+        public string LastName { get; set; } = lastName;
+        public int Age { get; set; } = age;
     }
 }
