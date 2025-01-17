@@ -1,4 +1,5 @@
-﻿using Application_Layer.Students.Queries.GetAll;
+﻿using Application_Layer.Students.Commands.CreateStudentCommand;
+using Application_Layer.Students.Queries.GetAll;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -35,8 +36,11 @@ namespace WebAPI_CQRS.Controllers
 
         // POST api/<StudentController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void Post([FromBody] CreateStudentCommand command)
         {
+           // var command=new CreateStudentCommand()
+           var result=_sender.Send(command);
+
         }
 
         // PUT api/<StudentController>/5

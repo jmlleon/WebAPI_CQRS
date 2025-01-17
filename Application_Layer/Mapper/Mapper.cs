@@ -1,4 +1,5 @@
-﻿using Application_Layer.Students.Queries.GetStudentById;
+﻿using Application_Layer.Students.Commands.CreateStudentCommand;
+using Application_Layer.Students.Queries.GetStudentById;
 using Domain_Layer.Model;
 using System;
 using System.Collections.Generic;
@@ -10,11 +11,24 @@ namespace Application_Layer.Mapper
 {
     public static class Mapper
     {
-        public static StudentResponse StudentToResponse(this Student student) {         
+        public static StudentResponse MapStudentToResponse(this StudentModel student) {         
         
             return new StudentResponse(student.Name, student.LastName, student.Age);        
         }
 
-       //public
+        public static StudentModel MapResponseToStudent(this StudentResponse studentResponse) {        
+        
+        return new StudentModel(studentResponse.Name, studentResponse.LastName, studentResponse.Age); 
+        
+        }
+
+        public static StudentModel MapCreateToStudent(this CreateStudentCommand createCommand)
+        {
+
+            return new StudentModel(createCommand.Name, createCommand.LastName, createCommand.Age);
+
+        }
+
+        
     }
 }

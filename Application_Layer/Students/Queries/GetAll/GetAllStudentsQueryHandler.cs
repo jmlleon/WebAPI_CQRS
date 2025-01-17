@@ -18,7 +18,7 @@ namespace Application_Layer.Students.Queries.GetAll
         {
             var result= await _studentRepository.GetAll();
 
-            return CustomResult<IEnumerable<StudentResponse>>.Success(result.Select(s => s.StudentToResponse()));
+            return CustomResult<IEnumerable<StudentResponse>>.Success(result.Select(s => s.MapStudentToResponse()));
 
         }
     }

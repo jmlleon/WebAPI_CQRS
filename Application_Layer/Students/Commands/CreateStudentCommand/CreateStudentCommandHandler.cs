@@ -1,4 +1,5 @@
 ﻿using Application_Layer.Interfaces;
+using Application_Layer.Mapper;
 using Application_Layer.Validation;
 using Domain_Layer.Errors;
 using Domain_Layer.Interfaces.Repository;
@@ -20,18 +21,15 @@ namespace Application_Layer.Students.Commands.CreateStudentCommand
         {
             //Make Validation Rules
 
-            var validationResult = StudentValidator.ValidateStudent((new Student(request.Name, request.LastName, request.Age)));
+            var validationResult = StudentValidator.ValidateStudent(request.MapCreateToStudent());
 
             if (validationResult != ValidationResult.Success) {
-
-                return CustomResult<int>.Failure(CustomError.ValidationError(validationResult.ErrorMessage ?? ""));
-            
+                return CustomResult<int>.Failure(CustomError.ValidationError(validationResult.ErrorMessage ?? ""));            
             }
 
-            var result = await _studentRepository.Add(new Student(request.Name, request.LastName, request.Age));
+            var result = await _studentRepository.Add(request.MapCreateToStudent());
 
-
-            return result > 0 ? CustomResult<int>.Success(result):CustomResult<int>.Failure(CustomError.)
+            return result > 0 ? CustomResult<int>.Success(result) : CustomResult<int>.Failure(CustomError.AddError("Student Add Error"));
 
 
         }

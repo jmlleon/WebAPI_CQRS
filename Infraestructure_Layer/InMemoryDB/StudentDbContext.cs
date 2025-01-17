@@ -24,8 +24,8 @@ namespace Infraestructure_Layer.InMemoryDB
 
             modelBuilder.Entity<Student>().HasKey(x => x.Id);
             modelBuilder.Entity<Student>().HasData(
-                new Student(1, "Juan Miguel", "Lorenzo Leon", 35),
-                new Student(2, "Pedro Luis", "Gonzalez Gutierrez", 36)
+                new Student(Guid.NewGuid(), "Juan Miguel", "Lorenzo Leon", 35),
+                new Student(Guid.NewGuid(), "Pedro Luis", "Gonzalez Gutierrez", 36)
                 );
         }
 

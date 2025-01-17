@@ -11,7 +11,7 @@ namespace Application_Layer.Validation
     internal sealed class StudentValidator
     {
 
-        public static ValidationResult ValidateStudent(Student student) {
+        public static ValidationResult ValidateStudent(StudentModel student) {
 
             List<string> errors = [];
 

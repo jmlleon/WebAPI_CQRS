@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 
 namespace Domain_Layer.Interfaces.Repository
 {
-    public interface IStudentRepository:IRepository<Student>
+    public interface IStudentRepository:IRepository<StudentModel>
     {
-       public Task<IQueryable<Student>> ExecuteQuery(Expression<Func<Student, bool>> predicate);
+       public Task<IQueryable<StudentModel>> ExecuteQuery(Expression<Func<StudentModel, bool>> predicate);
     }
 }

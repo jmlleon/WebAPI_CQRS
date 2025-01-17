@@ -20,7 +20,7 @@ namespace Application_Layer.Students.Queries.GetStudentById
                 return CustomResult<StudentResponse>.Failure(CustomError.RecordNotFound("Student not Found"));            
             }
 
-            return CustomResult<StudentResponse>.Success(result.StudentToResponse());
+            return CustomResult<StudentResponse>.Success(result.MapStudentToResponse());
         }
     }
 }

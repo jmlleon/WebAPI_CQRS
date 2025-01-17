@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain_Layer.Model
 {
-    public class Student(string name, string lastname, int age) : BaseModel
+    public class StudentModel(string name, string lastname, int age) : BaseModel
     {
         public Guid Id { get; set; } = Guid.NewGuid();
         public string Name { get; set; } = name;

@@ -13,19 +13,21 @@ namespace Domain_Layer.Errors
 
     public sealed record CustomError(string Code, string Message)
     {
-        private static readonly string RecordNotFoundCode = "RecordNotFound";
+        
+        private static readonly string AddErrorCode = "AddError";
         private static readonly string DeleteErrorCode = "DeleteError";
-        private static readonly string ValidationErrorCode = "ValidationError";
         private static readonly string UpdateErrorCode = "UpdateError";
+        private static readonly string ValidationErrorCode = "ValidationError";
+        private static readonly string RecordNotFoundCode = "RecordNotFound";
+        
 
 
         public static readonly CustomError None = new(string.Empty, string.Empty);
 
 
-        public static CustomError DeleteError(string message)
-        {
-            return new CustomError(DeleteErrorCode, message);
-        }
+        public static CustomError AddError(string message) => new(AddErrorCode, message);
+        public static CustomError DeleteError(string message)=> new (DeleteErrorCode, message);
+
 
         public static CustomError UpdateError(string message)
         {
