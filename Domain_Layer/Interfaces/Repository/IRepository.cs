@@ -10,10 +10,10 @@ namespace Domain_Layer.Interfaces.Repository
     public interface IRepository<T> where T : BaseModel
     {
         public Task<IEnumerable<T>> GetAll();
-        public Task<T> GetById(int id);
+        public Task<T?> GetById(Guid id);
         public Task<int> Add(T entity);
         public Task<int> Update(T entity);
-        public Task<int> Delete(int id);
+        public Task<int> Delete(Guid id);
 
     }
 }

@@ -11,6 +11,27 @@ namespace Domain_Layer.Errors
         public static readonly Error None = new(string.Empty, string.Empty);
     }
 
+    public static class StudentErrors
+    {
+        public static readonly Error NotFoundStudent = new Error(
+            "Student.NotFoundStudent", "Student not found");
+
+        public static Error ValidationStudentError(string message) => new Error(
+            "Student.StudentValidationError", message);
+
+        public static readonly Error StudentAddError = new Error(
+         "Student.StudentAddError", "The Student has not been inserted");
+
+        public static readonly Error StudentDeleteError = new Error(
+        "Student.StudentDeleteError", "The Student has not been deleted");
+
+        public static readonly Error StudentUpdateError = new Error(
+       "Student.StudentUpdateError", "The Student has not been updated");
+
+        public static readonly Error UnknowError = new Error(
+         "Student.UnknownError", "Unknown student error");
+    }
+
     public sealed record CustomError(string Code, string Message)
     {
         
@@ -45,20 +66,7 @@ namespace Domain_Layer.Errors
     }
 
 
-    public static class StudentErrors
-    {
-        public static readonly Error NotFoundStudent = new Error(
-            "Student.NotFoundStudent", "Student not found");
-
-        public static readonly Error NonMathStudent = new Error(
-            "Student.NonMathStudent", "The student id not math");
-
-        public static readonly Error StudentAddError = new Error(
-         "Student.StudentAddError", "The Student has not been inserted");
-
-        public static readonly Error UnknowError = new Error(
-         "Student.UnknownError", "Unknown student error");
-    }
+   
 
 
 }

@@ -1,5 +1,10 @@
-﻿using Application_Layer.Students.Commands.CreateStudentCommand;
+﻿using Application_Layer.Mapper;
+using Application_Layer.Students.Commands.Create;
+using Application_Layer.Students.Commands.Delete;
+using Application_Layer.Students.Commands.Update;
 using Application_Layer.Students.Queries.GetAll;
+using Application_Layer.Students.Queries.GetStudentById;
+using Domain_Layer.Errors;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -29,30 +34,58 @@ namespace WebAPI_CQRS.Controllers
 
         // GET api/<StudentController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public async Task<ActionResult<CustomResult<StudentResponse>>> Get(Guid id)
         {
-            return "value";
+            var result = await _sender.Send(new GetStudentByIdQuery(id));
+
+            if(result.IsFailure) {            
+                return result.Error.Equals(StudentErrors.NotFoundStudent) ? NotFound(result.Error) : BadRequest(result.Error);
+            }
+            return Ok(result.Value);
         }
 
         // POST api/<StudentController>
         [HttpPost]
-        public void Post([FromBody] CreateStudentCommand command)
-        {
-           // var command=new CreateStudentCommand()
-           var result=_sender.Send(command);
+        public async Task<IActionResult> Post([FromBody] CreateStudentCommand command)
+        {           
+           var result=await _sender.Send(command);
+
+            if (result.IsFailure) {            
+                return BadRequest(result.Error);             
+            }
+
+            return CreatedAtAction("Get", result.Value);
 
         }
 
         // PUT api/<StudentController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public async Task<ActionResult> Put(Guid id, [FromBody] UpdateStudentCommand command)
         {
+            command.UrlId = id;
+
+            var result = await _sender.Send(command);
+
+            if (result.IsFailure)
+            {
+                return BadRequest(result.Error);
+            }
+
+            return Ok(result.Value);
+
         }
 
         // DELETE api/<StudentController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<ActionResult> Delete(Guid id)
         {
+            var result = await _sender.Send(new DeleteStudentCommand(id));
+
+            if (result.IsFailure)
+            {
+                return BadRequest(result.Error);
+            }
+            return Ok(result.Value);
         }
     }
 }

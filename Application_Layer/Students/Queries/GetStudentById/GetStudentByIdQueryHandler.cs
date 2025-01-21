@@ -17,7 +17,7 @@ namespace Application_Layer.Students.Queries.GetStudentById
             var result = await _studentRepository.GetById(request.Id);
 
             if (result == null) {
-                return CustomResult<StudentResponse>.Failure(CustomError.RecordNotFound("Student not Found"));            
+                return CustomResult<StudentResponse>.Failure(StudentErrors.NotFoundStudent);            
             }
 
             return CustomResult<StudentResponse>.Success(result.MapStudentToResponse());

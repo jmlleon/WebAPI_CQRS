@@ -22,17 +22,27 @@ namespace Infraestructure_Layer.Repository
         {
             _context.Students.Add(model.MapModelToStudent());
 
+            //Return student Id
+
             return await _context.SaveChangesAsync();
         }
 
-        public Task<int> Delete(int id)
+        public async Task<int> Delete(Guid id)
         {
-            throw new NotImplementedException();
+            var student=_context.Students.FirstOrDefault(x => x.Id == id);
+
+            if (student == null) { return 0;}
+
+            _context.Students.Remove(student);
+
+            return await _context.SaveChangesAsync(); 
         }
 
-        public Task<IQueryable<StudentModel>> ExecuteQuery(Expression<Func<StudentModel, bool>> predicate)
+        public IQueryable<StudentModel> ExecuteQuery(Expression<Func<StudentModel, bool>> predicate)
         {
-            throw new NotImplementedException();
+            var result= _context.Students.Select(x => x.MapStudentToModel()).Where(predicate);
+
+            return result;
         }
 
         public async Task<IEnumerable<StudentModel>> GetAll()
@@ -40,14 +50,20 @@ namespace Infraestructure_Layer.Repository
             return await _context.Students.AsNoTracking().Select(s=>s.MapStudentToModel()).ToListAsync();
         }
 
-        public Task<StudentModel> GetById(int id)
+        public async Task<StudentModel?> GetById(Guid id)
         {
-            throw new NotImplementedException();
+            var student = await _context.Students.FirstOrDefaultAsync(s => s.Id == id);
+
+            return student!=null ? student.MapStudentToModel():null;
         }
 
-        public Task<int> Update(StudentModel entity)
+        public async Task<int> Update(StudentModel model)
         {
-            throw new NotImplementedException();
+            var student=model.MapModelToStudent();
+
+            _context.Students.Update(student);
+
+           return await _context.SaveChangesAsync();
         }
     }
 }

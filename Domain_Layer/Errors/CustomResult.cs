@@ -13,11 +13,11 @@ namespace Domain_Layer.Errors
             {
                 Value = value;
                 IsSuccess = true;
-                Error = CustomError.None;
+                Error = Error.None;
             }
-            private CustomResult(CustomError error)
+            private CustomResult(Error error)
             {
-                if (error == CustomError.None)
+                if (error == Error.None)
                 {
                     throw new ArgumentException("invalid error", nameof(error));
                 }
@@ -38,12 +38,12 @@ namespace Domain_Layer.Errors
                 }
                 private init => _value = value;
             }
-            public CustomError Error { get; }
+            public Error Error { get; }
             public static CustomResult<T> Success(T value)
             {
                 return new CustomResult<T>(value);
             }
-            public static CustomResult<T> Failure(CustomError error)
+            public static CustomResult<T> Failure(Error error)
             {
                 return new CustomResult<T>(error);
             }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Application_Layer.Students.Queries.GetStudentById
 {
-    public sealed record GetStudentByIdQuery(int Id):IQuery<StudentResponse>
+    public sealed record GetStudentByIdQuery(Guid Id):IQuery<StudentResponse>
     {
     }
 

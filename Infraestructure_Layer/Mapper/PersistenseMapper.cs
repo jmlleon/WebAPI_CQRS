@@ -11,11 +11,7 @@ namespace Infraestructure_Layer.Mapper
     public static class PersistenseMapper
     {
 
-        public static StudentModel MapStudentToModel(this Student student) {
-
-            return new StudentModel(student.Name, student.LastName, student.Age);
-        
-        }
+        public static StudentModel MapStudentToModel(this Student student)=>new (student.Id, student.Name, student.LastName, student.Age);
 
         public static Student MapModelToStudent(this StudentModel model)=> new (model.Id, model.Name, model.LastName, model.Age);
         

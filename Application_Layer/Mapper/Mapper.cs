@@ -1,4 +1,5 @@
-﻿using Application_Layer.Students.Commands.CreateStudentCommand;
+﻿using Application_Layer.Students.Commands.Create;
+using Application_Layer.Students.Commands.Update;
 using Application_Layer.Students.Queries.GetStudentById;
 using Domain_Layer.Model;
 using System;
@@ -16,19 +17,24 @@ namespace Application_Layer.Mapper
             return new StudentResponse(student.Name, student.LastName, student.Age);        
         }
 
-        public static StudentModel MapResponseToStudent(this StudentResponse studentResponse) {        
+       /* public static StudentModel MapResponseToStudent(this StudentResponse studentResponse) {        
         
         return new StudentModel(studentResponse.Name, studentResponse.LastName, studentResponse.Age); 
         
-        }
+        }*/
 
         public static StudentModel MapCreateToStudent(this CreateStudentCommand createCommand)
         {
-
-            return new StudentModel(createCommand.Name, createCommand.LastName, createCommand.Age);
+            return new StudentModel(Guid.NewGuid(), createCommand.Name, createCommand.LastName, createCommand.Age);
 
         }
 
-        
+        public static UpdateStudentModel MapUpdateToStudent(this UpdateStudentCommand updateCommand)
+        {
+            return new UpdateStudentModel(updateCommand.Id, updateCommand.Name, updateCommand.LastName, updateCommand.Age);
+
+        }
+
+
     }
 }

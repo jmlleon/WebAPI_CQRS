@@ -12,7 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application_Layer.Students.Commands.CreateStudentCommand
+namespace Application_Layer.Students.Commands.Create
 {
     internal sealed class CreateStudentCommandHandler(IStudentRepository _studentRepository) : ICommandHandler<CreateStudentCommand,int>
     {
@@ -24,12 +24,12 @@ namespace Application_Layer.Students.Commands.CreateStudentCommand
             var validationResult = StudentValidator.ValidateStudent(request.MapCreateToStudent());
 
             if (validationResult != ValidationResult.Success) {
-                return CustomResult<int>.Failure(CustomError.ValidationError(validationResult.ErrorMessage ?? ""));            
-            }
+                return CustomResult<int>.Failure(StudentErrors.ValidationStudentError(validationResult.ErrorMessage??""));
+             }
 
             var result = await _studentRepository.Add(request.MapCreateToStudent());
 
-            return result > 0 ? CustomResult<int>.Success(result) : CustomResult<int>.Failure(CustomError.AddError("Student Add Error"));
+            return result > 0 ? CustomResult<int>.Success(result) : CustomResult<int>.Failure(StudentErrors.StudentAddError);
 
 
         }

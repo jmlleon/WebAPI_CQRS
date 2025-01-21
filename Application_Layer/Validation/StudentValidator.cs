@@ -8,24 +8,44 @@ using System.Threading.Tasks;
 
 namespace Application_Layer.Validation
 {
-    internal sealed class StudentValidator
+    public sealed class StudentValidator
     {
 
-        public static ValidationResult ValidateStudent(StudentModel student) {
+        public static ValidationResult ValidateStudent(StudentModel student)
+        {
+            List<string> errors = CustomValidation(student);
 
+            return errors.Count == 0 ? ValidationResult.Success! : new ValidationResult(String.Join(",", errors));
+
+        }
+
+        public static ValidationResult ValidateStudentOnUpdate(Guid Id, UpdateStudentModel student)
+        {
+            List<string> errors = CustomValidation(new StudentModel(student.Id,student.Name, student.LastName, student.Age));
+
+            if (student!=null && Id != student.Id) {
+                errors.Add("The Student Id not Math");            
+            }
+
+            return errors.Count == 0 ? ValidationResult.Success! : new ValidationResult(String.Join(",", errors));
+
+        }
+
+        private static List<string> CustomValidation(StudentModel student)
+        {
             List<string> errors = [];
 
-            if (student == null) { 
+            if (student == null)
+            {
                 errors.Add("The Student object is null");
             }
 
-            if (student!=null && String.IsNullOrEmpty(student.Name)) {            
-                errors.Add("The Student Name can't be empty");            
+            if (student != null && String.IsNullOrEmpty(student.Name))
+            {
+                errors.Add("The Student Name can't be empty");
             }
 
-            return errors.Count == 0 ? ValidationResult.Success! : new ValidationResult(String.Join(",", errors)); 
-        
+            return errors;
         }
-
     }
 }

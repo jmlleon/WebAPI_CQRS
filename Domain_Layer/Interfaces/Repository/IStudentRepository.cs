@@ -10,6 +10,6 @@ namespace Domain_Layer.Interfaces.Repository
 {
     public interface IStudentRepository:IRepository<StudentModel>
     {
-       public Task<IQueryable<StudentModel>> ExecuteQuery(Expression<Func<StudentModel, bool>> predicate);
+       public IQueryable<StudentModel> ExecuteQuery(Expression<Func<StudentModel, bool>> predicate);
     }
 }

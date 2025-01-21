@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain_Layer.Model
 {
-    public class StudentModel(Guid id, string name, string lastname, int age) : BaseModel
+    public sealed class UpdateStudentModel(Guid id,string name, string lastname, int age):BaseModel
     {
         public Guid Id { get; set; } = id;
         public string Name { get; set; } = name;

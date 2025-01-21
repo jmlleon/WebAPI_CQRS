@@ -14,8 +14,4 @@
     <ProjectReference Include="..\Domain_Layer\Domain_Layer.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Students\Commands\UpdateStudentCommand\" />
-  </ItemGroup>
-
 </Project>
