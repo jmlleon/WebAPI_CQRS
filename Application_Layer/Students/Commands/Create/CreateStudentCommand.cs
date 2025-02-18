@@ -9,7 +9,7 @@ using System.Xml.Linq;
 
 namespace Application_Layer.Students.Commands.Create
 {
-    public sealed class CreateStudentCommand(string Name, string LastName, int Age) : ICommand<int> {
+    public sealed class CreateStudentCommand(string Name, string LastName, int Age) : ICommand<Guid> {
 
         public string Name { get; set; } = Name;
         public string LastName { get; set; } = LastName;

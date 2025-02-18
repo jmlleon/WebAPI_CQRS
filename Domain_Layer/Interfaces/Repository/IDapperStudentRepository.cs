@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Domain_Layer.Interfaces.Repository
 {
-    public interface IStudentRepository:IRepository<StudentModel>
+    public interface IDapperStudentRepository:IDapperRepository<StudentModel>
     {
        public IQueryable<StudentModel> ExecuteQuery(Expression<Func<StudentModel, bool>> predicate);
     }

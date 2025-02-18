@@ -17,7 +17,9 @@ builder.Services.AddDbContext<StudentDbContext>();
 
 //options => { options.UseInMemoryDatabase("StudentDb"); options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);}
 
-builder.Services.AddScoped<IStudentRepository, StudentRepository>();
+builder.Services.AddScoped<IEFCoreStudentRepository, StudentEFCoreRepository>();
+
+builder.Services.AddScoped<IDapperStudentRepository, StudentDapperRepository>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -25,34 +27,6 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
-
-/*using (var scope = app.Services.CreateScope())
-{
-    var dbInitializer = scope.ServiceProvider.GetRequiredService<IDbInitializer>();
-    dbInitializer.Initialize();
-}*/
-
-/*using (var scope = app.Services.CreateScope())
-{
-
-    using (var contextValue = scope.ServiceProvider.GetRequiredService<StudentDbContext>())
-    {
-
-        contextValue.Database.EnsureCreated();
-
-        List<Student> students =
-           [
-               new Student { Id = 1, Name = "Juan Miguel ", LastName = "Lorenzo", Age = 35 },
-               new Student { Id = 1, Name = "Pedro Luis", LastName = "Gonzalez", Age = 36 },
-           ];
-
-        contextValue.AddRange(students);
-        contextValue.SaveChanges();
-    }
-
-    //someContext.Seed();
-
-}*/
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

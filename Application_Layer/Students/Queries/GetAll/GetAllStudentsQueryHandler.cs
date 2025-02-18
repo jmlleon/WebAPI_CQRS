@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Application_Layer.Students.Queries.GetAll
 {
-    public sealed class GetAllStudentsQueryHandler(IStudentRepository _studentRepository) : IQueryHandler<GetAllStudentsQuery, IEnumerable<StudentResponse>>
+    public sealed class GetAllStudentsQueryHandler(IDapperStudentRepository _studentRepository) : IQueryHandler<GetAllStudentsQuery, IEnumerable<StudentResponse>>
     {      
 
         public async Task<CustomResult<IEnumerable<StudentResponse>>> Handle(GetAllStudentsQuery request, CancellationToken cancellationToken)

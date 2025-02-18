@@ -4,6 +4,7 @@ using Application_Layer.Students.Commands.Delete;
 using Application_Layer.Students.Commands.Update;
 using Application_Layer.Students.Queries.GetAll;
 using Application_Layer.Students.Queries.GetStudentById;
+using Domain_Layer.DTO;
 using Domain_Layer.Errors;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -33,7 +34,7 @@ namespace WebAPI_CQRS.Controllers
         }
 
         // GET api/<StudentController>/5
-        [HttpGet("{id}")]
+        [HttpGet("{id:guid}")]
         public async Task<ActionResult<CustomResult<StudentResponse>>> Get(Guid id)
         {
             var result = await _sender.Send(new GetStudentByIdQuery(id));
@@ -47,23 +48,24 @@ namespace WebAPI_CQRS.Controllers
         // POST api/<StudentController>
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] CreateStudentCommand command)
-        {           
-           var result=await _sender.Send(command);
+        {
+            var result = await _sender.Send(command);
 
-            if (result.IsFailure) {            
-                return BadRequest(result.Error);             
-            }
+            if (result.IsFailure) {
+                return BadRequest(result.Error);
+            }           
 
-            return CreatedAtAction("Get", result.Value);
+            return CreatedAtAction("Get", new {id=result.Value}, command);
 
         }
 
         // PUT api/<StudentController>/5
-        [HttpPut("{id}")]
-        public async Task<ActionResult> Put(Guid id, [FromBody] UpdateStudentCommand command)
+        [HttpPut("{id:Guid}")]
+        public async Task<ActionResult> Put(Guid id, [FromBody] UpdateStudentDTO updateDTO)
         {
-            command.UrlId = id;
 
+            var command = new UpdateStudentCommand(updateDTO.Id, updateDTO.Name, updateDTO.LastName, updateDTO.Age, id);
+            
             var result = await _sender.Send(command);
 
             if (result.IsFailure)

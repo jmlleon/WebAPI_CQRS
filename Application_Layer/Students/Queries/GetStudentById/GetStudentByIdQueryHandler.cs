@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Application_Layer.Students.Queries.GetStudentById
 {
-    internal sealed class GetStudentByIdQueryHandler(IStudentRepository _studentRepository) : IQueryHandler<GetStudentByIdQuery, StudentResponse>
+    internal sealed class GetStudentByIdQueryHandler(IDapperStudentRepository _studentRepository) : IQueryHandler<GetStudentByIdQuery, StudentResponse>
     {
         public async Task<CustomResult<StudentResponse>> Handle(GetStudentByIdQuery request, CancellationToken cancellationToken)
         {

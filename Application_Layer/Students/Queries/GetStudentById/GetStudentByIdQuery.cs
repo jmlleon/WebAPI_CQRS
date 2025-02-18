@@ -11,7 +11,7 @@ namespace Application_Layer.Students.Queries.GetStudentById
     {
     }
 
-    public sealed record StudentResponse(string Name, string LastName, int Age) 
+    public sealed record StudentResponse(Guid Id, string Name, string LastName, int Age) 
     {        
     }
 }

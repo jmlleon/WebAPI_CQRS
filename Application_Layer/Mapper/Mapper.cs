@@ -14,7 +14,7 @@ namespace Application_Layer.Mapper
     {
         public static StudentResponse MapStudentToResponse(this StudentModel student) {         
         
-            return new StudentResponse(student.Name, student.LastName, student.Age);        
+            return new StudentResponse(student.Id, student.Name, student.LastName, student.Age);        
         }
 
        /* public static StudentModel MapResponseToStudent(this StudentResponse studentResponse) {        

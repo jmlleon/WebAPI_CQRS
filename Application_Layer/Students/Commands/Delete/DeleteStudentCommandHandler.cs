@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Application_Layer.Students.Commands.Delete
 {
-    public sealed class DeleteStudentCommandHandler(IStudentRepository _repository) : ICommandHandler<DeleteStudentCommand, int>
+    public sealed class DeleteStudentCommandHandler(IEFCoreStudentRepository _repository) : ICommandHandler<DeleteStudentCommand, int>
     {
         public async Task<CustomResult<int>> Handle(DeleteStudentCommand request, CancellationToken cancellationToken)
         {

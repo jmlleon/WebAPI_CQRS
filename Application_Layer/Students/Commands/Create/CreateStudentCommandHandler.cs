@@ -14,22 +14,22 @@ using System.Threading.Tasks;
 
 namespace Application_Layer.Students.Commands.Create
 {
-    internal sealed class CreateStudentCommandHandler(IStudentRepository _studentRepository) : ICommandHandler<CreateStudentCommand,int>
+    internal sealed class CreateStudentCommandHandler(IEFCoreStudentRepository _studentRepository) : ICommandHandler<CreateStudentCommand,Guid>
     {
 
-        public async Task<CustomResult<int>> Handle(CreateStudentCommand request, CancellationToken cancellationToken)
+        public async Task<CustomResult<Guid>> Handle(CreateStudentCommand request, CancellationToken cancellationToken)
         {
             //Make Validation Rules
 
             var validationResult = StudentValidator.ValidateStudent(request.MapCreateToStudent());
 
             if (validationResult != ValidationResult.Success) {
-                return CustomResult<int>.Failure(StudentErrors.ValidationStudentError(validationResult.ErrorMessage??""));
+                return CustomResult<Guid>.Failure(StudentErrors.ValidationStudentError(validationResult.ErrorMessage??""));
              }
 
             var result = await _studentRepository.Add(request.MapCreateToStudent());
 
-            return result > 0 ? CustomResult<int>.Success(result) : CustomResult<int>.Failure(StudentErrors.StudentAddError);
+            return !String.IsNullOrEmpty(result) ? CustomResult<Guid>.Success(new Guid(result)) : CustomResult<Guid>.Failure(StudentErrors.StudentAddError);
 
 
         }

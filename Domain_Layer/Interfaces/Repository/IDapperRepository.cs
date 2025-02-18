@@ -7,13 +7,11 @@ using System.Threading.Tasks;
 
 namespace Domain_Layer.Interfaces.Repository
 {
-    public interface IRepository<T> where T : BaseModel
+    public interface IDapperRepository<T> where T : BaseModel
     {
         public Task<IEnumerable<T>> GetAll();
         public Task<T?> GetById(Guid id);
-        public Task<int> Add(T entity);
-        public Task<int> Update(T entity);
-        public Task<int> Delete(Guid id);
+        
 
     }
 }

@@ -23,7 +23,7 @@ namespace Application_Layer.Validation
         {
             List<string> errors = CustomValidation(new StudentModel(student.Id,student.Name, student.LastName, student.Age));
 
-            if (student!=null && Id != student.Id) {
+            if (student is not null && Id != student.Id) {
                 errors.Add("The Student Id not Math");            
             }
 
@@ -35,12 +35,12 @@ namespace Application_Layer.Validation
         {
             List<string> errors = [];
 
-            if (student == null)
+            if (student is null)
             {
                 errors.Add("The Student object is null");
             }
 
-            if (student != null && String.IsNullOrEmpty(student.Name))
+            if (student is not null && String.IsNullOrEmpty(student.Name))
             {
                 errors.Add("The Student Name can't be empty");
             }

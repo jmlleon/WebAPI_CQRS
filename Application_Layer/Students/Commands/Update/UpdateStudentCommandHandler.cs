@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Application_Layer.Students.Commands.Update
 {
-    public sealed class UpdateStudentCommandHandler(IStudentRepository _repository) : ICommandHandler<UpdateStudentCommand, int>
+    public sealed class UpdateStudentCommandHandler(IEFCoreStudentRepository _repository) : ICommandHandler<UpdateStudentCommand, int>
     {
         public async Task<CustomResult<int>> Handle(UpdateStudentCommand request, CancellationToken cancellationToken)
         {
