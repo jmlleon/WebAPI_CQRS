@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain_Layer.Model
 {
-    public abstract class BaseEntity
+    public abstract class BaseModel
     {
     }
 }

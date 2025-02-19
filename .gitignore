@@ -361,3 +361,8 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/Infraestructure_Layer/Repository/FillDataBase.cs
+/Infraestructure_Layer/Migrations/20250124191827_Migration1.cs
+/Infraestructure_Layer/Migrations/20250124202800_Migration2.cs
+/Infraestructure_Layer/Migrations/StudentDbContextModelSnapshot.cs
+/WebAPI_CQRS/WebAPI_CQRS.http
