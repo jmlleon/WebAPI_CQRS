@@ -11,29 +11,10 @@ namespace Infraestructure_Layer.Entities
 {
     public sealed class Student(Guid id, string name, string lastName, int age) : BaseEntity
     {
-
-        public Guid Id { get; set; } = id;
-        /* public string Id
-         {
-             get { return Guid_Id.ToString("N"); }
-             set { Guid_Id = new Guid(value); }
-         }*/
-
-        // private Guid Guid_Id { get; set; } 
+        public Guid Id { get; set; } = id;        
         public string Name { get; set; } = name;
         public string LastName { get; set; } = lastName; 
-        public int Age { get; set; }=age;
-        
-
-        /*public Student(string id, string name, string lastName, int age)
-        {
-            Id=id;
-            Guid_Id = new Guid(id);
-            Name = name;
-            LastName = lastName;
-            Age = age;
-
-        }*/
+        public int Age { get; set; }=age;        
 
         
     }

@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Application_Layer.Students.Commands.Create
 {
-    internal sealed class CreateStudentCommandHandler(IEFCoreStudentRepository _studentRepository) : ICommandHandler<CreateStudentCommand,Guid>
+    internal sealed class CreateStudentCommandHandler(IEFCoreStudentRepository _efCoreRepository) : ICommandHandler<CreateStudentCommand,Guid>
     {
 
         public async Task<CustomResult<Guid>> Handle(CreateStudentCommand request, CancellationToken cancellationToken)
@@ -27,7 +27,7 @@ namespace Application_Layer.Students.Commands.Create
                 return CustomResult<Guid>.Failure(StudentErrors.ValidationStudentError(validationResult.ErrorMessage??""));
              }
 
-            var result = await _studentRepository.Add(request.MapCreateToStudent());
+            var result = await _efCoreRepository.Add(request.MapCreateToStudent());
 
             return !String.IsNullOrEmpty(result) ? CustomResult<Guid>.Success(new Guid(result)) : CustomResult<Guid>.Failure(StudentErrors.StudentAddError);
 

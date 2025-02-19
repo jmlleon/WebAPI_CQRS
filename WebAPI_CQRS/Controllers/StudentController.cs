@@ -23,7 +23,7 @@ namespace WebAPI_CQRS.Controllers
             _sender = sender;       
         }
 
-        // GET: api/<StudentController>
+        
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
@@ -33,7 +33,7 @@ namespace WebAPI_CQRS.Controllers
 
         }
 
-        // GET api/<StudentController>/5
+        
         [HttpGet("{id:guid}")]
         public async Task<ActionResult<CustomResult<StudentResponse>>> Get(Guid id)
         {
@@ -45,7 +45,7 @@ namespace WebAPI_CQRS.Controllers
             return Ok(result.Value);
         }
 
-        // POST api/<StudentController>
+       
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] CreateStudentCommand command)
         {
@@ -59,14 +59,12 @@ namespace WebAPI_CQRS.Controllers
 
         }
 
-        // PUT api/<StudentController>/5
+        
         [HttpPut("{id:Guid}")]
-        public async Task<ActionResult> Put(Guid id, [FromBody] UpdateStudentDTO updateDTO)
-        {
-
-            var command = new UpdateStudentCommand(updateDTO.Id, updateDTO.Name, updateDTO.LastName, updateDTO.Age, id);
+        public async Task<ActionResult> Put(Guid id, [FromBody] StudentDTO updateDTO)
+        {                      
             
-            var result = await _sender.Send(command);
+            var result = await _sender.Send(new UpdateStudentCommand(updateDTO.Id, updateDTO.Name, updateDTO.LastName, updateDTO.Age, id));
 
             if (result.IsFailure)
             {
@@ -77,7 +75,7 @@ namespace WebAPI_CQRS.Controllers
 
         }
 
-        // DELETE api/<StudentController>/5
+        
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(Guid id)
         {
@@ -85,8 +83,9 @@ namespace WebAPI_CQRS.Controllers
 
             if (result.IsFailure)
             {
-                return BadRequest(result.Error);
-            }
+                return result.Error.Equals(StudentErrors.NotFoundStudent) ? NotFound(result.Error) : BadRequest(result.Error);
+            }            
+
             return Ok(result.Value);
         }
     }

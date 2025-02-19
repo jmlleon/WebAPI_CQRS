@@ -10,13 +10,13 @@ using System.Threading.Tasks;
 
 namespace Application_Layer.Students.Queries.GetStudentById
 {
-    internal sealed class GetStudentByIdQueryHandler(IDapperStudentRepository _studentRepository) : IQueryHandler<GetStudentByIdQuery, StudentResponse>
+    internal sealed class GetStudentByIdQueryHandler(IDapperStudentRepository _dapperRepository) : IQueryHandler<GetStudentByIdQuery, StudentResponse>
     {
         public async Task<CustomResult<StudentResponse>> Handle(GetStudentByIdQuery request, CancellationToken cancellationToken)
         {
-            var result = await _studentRepository.GetById(request.Id);
+            var result = await _dapperRepository.GetById(request.Id);
 
-            if (result == null) {
+            if (result is null) {
                 return CustomResult<StudentResponse>.Failure(StudentErrors.NotFoundStudent);            
             }
 

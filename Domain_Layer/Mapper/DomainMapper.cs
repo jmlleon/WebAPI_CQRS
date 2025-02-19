@@ -9,7 +9,5 @@ namespace Domain_Layer.Mapper
     public static class DomainMapper
     {
 
-
-
     }
 }

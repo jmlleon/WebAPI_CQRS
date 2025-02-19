@@ -18,7 +18,7 @@ namespace Domain_Layer.Model
 
         public Guid Id { get; set; }
         public string Name { get; set; }
-        public string LastName { get; set; }// String.Empty;
+        public string LastName { get; set; }
         public int Age { get; set;}
 
          public StudentModel()

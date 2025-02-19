@@ -13,24 +13,22 @@ using System.Threading.Tasks;
 
 namespace Application_Layer.Students.Commands.Update
 {
-    public sealed class UpdateStudentCommandHandler(IEFCoreStudentRepository _repository) : ICommandHandler<UpdateStudentCommand, int>
+    public sealed class UpdateStudentCommandHandler(IEFCoreStudentRepository _efCoreRepository) : ICommandHandler<UpdateStudentCommand, int>
     {
         public async Task<CustomResult<int>> Handle(UpdateStudentCommand request, CancellationToken cancellationToken)
         {
-            //Validation 
+            //Validation Rules
 
             var validationResult = StudentValidator.ValidateStudentOnUpdate(request.UrlId, request.MapUpdateToStudent());
 
             if (validationResult != ValidationResult.Success) {
                 return CustomResult<int>.Failure(StudentErrors.ValidationStudentError(validationResult.ErrorMessage ?? ""));            
-            }
+            }           
 
-            var student = new StudentModel(request.Id, request.Name, request.LastName, request.Age);
-
-            var result = await _repository.Update(student);
+            var result = await _efCoreRepository.Update(request.MapUpdateToStudent());
 
             if (result == 0) {
-                return CustomResult<int>.Failure(StudentErrors.StudentDeleteError);                            
+                return CustomResult<int>.Failure(StudentErrors.StudentUpdateError);                            
             }
 
             return CustomResult<int>.Success(result);

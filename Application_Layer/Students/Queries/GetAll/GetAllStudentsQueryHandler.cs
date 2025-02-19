@@ -11,12 +11,12 @@ using System.Threading.Tasks;
 
 namespace Application_Layer.Students.Queries.GetAll
 {
-    public sealed class GetAllStudentsQueryHandler(IDapperStudentRepository _studentRepository) : IQueryHandler<GetAllStudentsQuery, IEnumerable<StudentResponse>>
+    public sealed class GetAllStudentsQueryHandler(IDapperStudentRepository _dapperRepository) : IQueryHandler<GetAllStudentsQuery, IEnumerable<StudentResponse>>
     {      
 
         public async Task<CustomResult<IEnumerable<StudentResponse>>> Handle(GetAllStudentsQuery request, CancellationToken cancellationToken)
         {
-            var result= await _studentRepository.GetAll();
+            var result= await _dapperRepository.GetAll();
 
             return CustomResult<IEnumerable<StudentResponse>>.Success(result.Select(s => s.MapStudentToResponse()));
 

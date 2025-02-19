@@ -19,9 +19,9 @@ namespace Application_Layer.Validation
 
         }
 
-        public static ValidationResult ValidateStudentOnUpdate(Guid Id, UpdateStudentModel student)
+        public static ValidationResult ValidateStudentOnUpdate(Guid Id, StudentModel student)
         {
-            List<string> errors = CustomValidation(new StudentModel(student.Id,student.Name, student.LastName, student.Age));
+            List<string> errors = CustomValidation(student);
 
             if (student is not null && Id != student.Id) {
                 errors.Add("The Student Id not Math");            

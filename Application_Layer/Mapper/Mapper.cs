@@ -15,26 +15,19 @@ namespace Application_Layer.Mapper
         public static StudentResponse MapStudentToResponse(this StudentModel student) {         
         
             return new StudentResponse(student.Id, student.Name, student.LastName, student.Age);        
-        }
-
-       /* public static StudentModel MapResponseToStudent(this StudentResponse studentResponse) {        
-        
-        return new StudentModel(studentResponse.Name, studentResponse.LastName, studentResponse.Age); 
-        
-        }*/
+        }      
 
         public static StudentModel MapCreateToStudent(this CreateStudentCommand createCommand)
         {
             return new StudentModel(Guid.NewGuid(), createCommand.Name, createCommand.LastName, createCommand.Age);
 
         }
-
-        public static UpdateStudentModel MapUpdateToStudent(this UpdateStudentCommand updateCommand)
+      
+        public static StudentModel MapUpdateToStudent(this UpdateStudentCommand updateCommand)
         {
-            return new UpdateStudentModel(updateCommand.Id, updateCommand.Name, updateCommand.LastName, updateCommand.Age);
+            return new StudentModel(updateCommand.Id, updateCommand.Name, updateCommand.LastName, updateCommand.Age);
 
         }
-
 
     }
 }
